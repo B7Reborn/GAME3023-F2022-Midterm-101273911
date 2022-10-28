@@ -9,12 +9,44 @@ public class Item : ScriptableObject //Extending SO allows us to have an object 
     public Sprite icon;
     public string description = "";
     public bool isConsumable = false;
-    [Range(1, 6)]
-    public int numEffects = 1;
+
+    public Effect[] itemEffects;
 
 
-    public void Use()
+    public void Use(CharacterStatus affectedCharacter)
     {
         Debug.Log("Used item: " + name + " - " + description);
+
+        // Alter character stats based on all the effects the item applies
+        foreach(Effect effect in itemEffects)
+        {
+            switch (effect.affectedStat)
+            {
+                case Stats.HEALTH:
+                    affectedCharacter.currentHealth += effect.effectStrength;
+                    break;
+                case Stats.MANA:
+                    affectedCharacter.currentMana += effect.effectStrength;
+                    break;
+                case Stats.STRENGTH:
+                    affectedCharacter.strength += effect.effectStrength;
+                    break;
+                case Stats.DEXTERITY:
+                    affectedCharacter.dexterity += effect.effectStrength;
+                    break;
+                case Stats.INTELLIGENCE:
+                    affectedCharacter.intellegence += effect.effectStrength;
+                    break;
+                case Stats.DEFENCE:
+                    affectedCharacter.defence += effect.effectStrength;
+                    break;
+                case Stats.STAMINA:
+                    affectedCharacter.stamina += effect.effectStrength;
+                    break;
+            }
+        }
+
+        // Update the player's status
+        affectedCharacter.UpdateText();
     }
 }
