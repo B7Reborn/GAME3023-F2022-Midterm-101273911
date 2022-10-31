@@ -7,6 +7,19 @@ using UnityEngine;
 public class Ingredient : ScriptableObject
 {
     public Sprite icon;
-    public string ingredientName = "";
-    public Effect[] effectList;
+    public string description = "";
+    public List<Effect> effectList;
+    public bool inPot;
+
+    public void MoveIngredient()
+    {
+        if (inPot)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }

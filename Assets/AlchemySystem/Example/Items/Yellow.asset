@@ -15,4 +15,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f836d41b5ee76504c9aead50abef9104, type: 3}
   description: A Yellow is an exotic fruit rich in potassium. It was named so by
     the same person who named the Orange.
-  isConsumable: 1
+  isConsumable: 0
+  itemEffects:
+  - effectName: 
+    effectStrength: 5
+    affectedStat: 0

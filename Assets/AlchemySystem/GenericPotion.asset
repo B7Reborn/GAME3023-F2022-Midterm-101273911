@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8290b75b2cbd6af45b7ad408c0444bf8, type: 3}
-  m_Name: TestPotion
+  m_Name: GenericPotion
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: e973744c22450624694cad2f4267b9b3, type: 3}
-  description: This is a test potion
+  description: A potion with varying effects
   isConsumable: 1
-  itemEffects:
-  - effectName: 
-    effectStrength: 3
-    affectedStat: 2
+  itemEffects: []

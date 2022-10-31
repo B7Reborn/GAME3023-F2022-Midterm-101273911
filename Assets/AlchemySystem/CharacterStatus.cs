@@ -33,13 +33,13 @@ public class CharacterStatus : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI staminaText;
 
-    // Start is called before the first frame update
+    
     void Start()
     { 
         UpdateText();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -47,6 +47,8 @@ public class CharacterStatus : MonoBehaviour
 
     public void UpdateText()
     {
+        CheckVitals();
+
         healthText.text = $"{currentHealth}/{maxHealth}";
         manaText.text = $"{currentMana}/{maxMana}";
         strengthText.text = $"{strength}";
@@ -54,5 +56,18 @@ public class CharacterStatus : MonoBehaviour
         intellegenceText.text = $"{intellegence}";
         defenceText.text = $"{defence}";
         staminaText.text = $"{stamina}";
+    }
+
+    // Ensure current health/mana doesn't exceed their max amount
+    public void CheckVitals()
+    {
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        if (currentMana > maxMana)
+        {
+            currentMana = maxMana;
+        }
     }
 }

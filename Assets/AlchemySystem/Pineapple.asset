@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e817883dcbfcce4485fe7ff8e4bd9f0, type: 3}
-  m_Name: Apple
+  m_Name: Pineapple
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  ingredientName: 
-  effectList: []
+  icon: {fileID: 21300000, guid: 6c50b88abdc27354fb9d316d6fd88db6, type: 3}
+  description: 
+  effectList:
+  - effectName: 
+    effectStrength: 2
+    affectedStat: 0
+  inPot: 0

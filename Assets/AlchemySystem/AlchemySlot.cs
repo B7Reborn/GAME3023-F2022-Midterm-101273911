@@ -6,11 +6,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//Holds reference and count of items, manages their visibility in the Inventory panel
-public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class AlchemySlot : MonoBehaviour
 {
     public Item item = null;
-    private CharacterStatus playerStatus;
 
     [SerializeField]
     private TMPro.TextMeshProUGUI descriptionText;
@@ -35,11 +33,18 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     TextMeshProUGUI itemCountText;
 
+    [Header("Alchemy Slot Settings")]
+    [SerializeField]
+    private IngredientSlot[] ingredientSlots;
+    [SerializeField]
+    private ItemSlot[] itemSlots;
+    [SerializeField]
+    private Item genericPotion;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        playerStatus = FindObjectOfType<CharacterStatus>();
         UpdateGraphic();
     }
 
@@ -62,18 +67,45 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    public void GeneratePotion()
+    {
+        // Create the made potion
+        Item newPotion = genericPotion;
+        foreach (IngredientSlot slot in ingredientSlots)
+        {
+            if (slot.ingredient != null)
+            {
+                foreach (Effect effect in slot.ingredient.effectList)
+                {
+                    newPotion.itemEffects.Add(effect);
+                }
+            }
+        }
 
+        item = newPotion;
+        Count = 1;
+        // asdf
+    }
 
     public void UseItemInSlot()
     {
-        if (CanUseItem())
+
+        // When clicking the alchemy slot 
+        foreach (ItemSlot slot in itemSlots)
         {
-            item.Use(playerStatus);
-            if (item.isConsumable)
+            if (slot.item == null && this.item != null)
             {
-                Count--;
+                slot.item = this.item;
+                slot.Count += 1;
+                break;
+            }
+            else if (slot.item == this.item)
+            {
+                slot.Count += 1;
+                break;
             }
         }
+
     }
 
     private bool CanUseItem()
@@ -104,7 +136,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(item != null)
+        if (item != null)
         {
             descriptionText.text = "";
             nameText.text = "";

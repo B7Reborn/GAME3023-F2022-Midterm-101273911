@@ -10,7 +10,7 @@ public class Item : ScriptableObject //Extending SO allows us to have an object 
     public string description = "";
     public bool isConsumable = false;
 
-    public Effect[] itemEffects;
+    public List<Effect> itemEffects;
 
 
     public void Use(CharacterStatus affectedCharacter)
