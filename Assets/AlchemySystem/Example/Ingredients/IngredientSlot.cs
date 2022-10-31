@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IngredientSlot : MonoBehaviour
+public class IngredientSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Ingredient ingredient = null;
     private CharacterStatus playerStatus;
@@ -15,6 +15,11 @@ public class IngredientSlot : MonoBehaviour
     private TMPro.TextMeshProUGUI descriptionText;
     [SerializeField]
     private TMPro.TextMeshProUGUI nameText;
+
+    [SerializeField] 
+    private TMPro.TextMeshProUGUI effectsDescriptionText;
+    [SerializeField] 
+    private TMPro.TextMeshProUGUI effectsText;
 
     [SerializeField]
     private int count = 0;
@@ -43,6 +48,8 @@ public class IngredientSlot : MonoBehaviour
     [SerializeField]
     private bool pouchSlot = true;
 
+    public bool displaySlot = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +58,7 @@ public class IngredientSlot : MonoBehaviour
     }
 
     //Change Icon and count
-    void UpdateGraphic()
+    public void UpdateGraphic()
     {
         if (count < 1)
         {
@@ -71,7 +78,7 @@ public class IngredientSlot : MonoBehaviour
 
     public void MoveIngredient()
     {
-        if (CanUseIngredient())
+        if (CanUseIngredient() && !displaySlot)
         {
             if (pouchSlot)
             {
@@ -85,10 +92,7 @@ public class IngredientSlot : MonoBehaviour
                         break;
                     }
                 }
-                if (outputSlot != null)
-                {
-                    outputSlot.GeneratePotion();
-                }
+                
             }
             else
             {
@@ -108,13 +112,15 @@ public class IngredientSlot : MonoBehaviour
                         break;
                     }
                 }
-                if (outputSlot != null)
-                {
-                    outputSlot.GeneratePotion();
-                }
-            }
+                
 
+            }
             Count--;
+            if (outputSlot != null)
+            {
+                outputSlot.GeneratePotion();
+            }
+            
             
         }
     }
@@ -132,14 +138,14 @@ public class IngredientSlot : MonoBehaviour
             descriptionText.text = ingredient.description;
             foreach (Effect effect in ingredient.effectList)
             {
-                descriptionText.text += $"\n {effect.affectedStat}";
+                effectsDescriptionText.text += $"{effect.affectedStat}";
                 if (effect.effectStrength > -1)
                 {
-                    descriptionText.text += $" +{effect.effectStrength}";
+                    effectsDescriptionText.text += $" +{effect.effectStrength}\n";
                 }
                 else
                 {
-                    descriptionText.text += $" -{effect.effectStrength}";
+                    effectsDescriptionText.text += $" -{effect.effectStrength}\n";
                 }
             }
         }
@@ -150,7 +156,9 @@ public class IngredientSlot : MonoBehaviour
         if (ingredient != null)
         {
             descriptionText.text = "";
-            nameText.text = "";
+            nameText.text = "Ingredients";
+            effectsDescriptionText.text = "";
+            effectsText.text = "Effects";
         }
     }
 }

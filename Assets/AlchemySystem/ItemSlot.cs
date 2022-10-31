@@ -96,7 +96,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 }
                 else
                 {
-                    descriptionText.text += $" -{effect.effectStrength}";
+                    descriptionText.text += $" {effect.effectStrength}";
                 }
             }
         }

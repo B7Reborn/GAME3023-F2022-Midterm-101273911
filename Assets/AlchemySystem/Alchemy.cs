@@ -12,10 +12,15 @@ public class Alchemy : MonoBehaviour
     private GameObject characterScreen;
     [SerializeField] 
     private GameObject alchemyScreen;
+    [SerializeField] 
+    private GameObject ingredientsScreen;
+    [SerializeField] 
+    private GameObject recipesScreen;
 
     public bool alchemyEnabled = false;
+    public bool recipeScreen = false;
 
-
+    
 
 
     public void MenuScreenSwapper()
@@ -32,6 +37,26 @@ public class Alchemy : MonoBehaviour
 
         // Invert the alchemyEnabled bool so screens can be swapped back
         alchemyEnabled = !alchemyEnabled;
-        //empts
+        
+    }
+
+    public void OpenRecipeScreen()
+    {
+        if (recipeScreen == false)
+        {
+            ingredientsScreen.SetActive(false);
+            recipesScreen.SetActive(true);
+            recipeScreen = !recipeScreen;
+        }
+    }
+
+    public void OpenIngredientScreen()
+    {
+        if (recipeScreen == true)
+        {
+            ingredientsScreen.SetActive(true);
+            recipesScreen.SetActive(false);
+            recipeScreen = !recipeScreen;
+        }
     }
 }

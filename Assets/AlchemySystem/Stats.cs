@@ -5,7 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public enum Stats
 {
+    MAXHEALTH,
     HEALTH,
+    MAXMANA,
     MANA,
     STRENGTH,
     DEXTERITY,

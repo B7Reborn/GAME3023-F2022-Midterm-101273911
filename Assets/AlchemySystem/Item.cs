@@ -22,8 +22,14 @@ public class Item : ScriptableObject //Extending SO allows us to have an object 
         {
             switch (effect.affectedStat)
             {
+                case Stats.MAXHEALTH:
+                    affectedCharacter.maxHealth += effect.effectStrength;
+                    break;
                 case Stats.HEALTH:
                     affectedCharacter.currentHealth += effect.effectStrength;
+                    break;
+                case Stats.MAXMANA:
+                    affectedCharacter.maxMana += effect.effectStrength;
                     break;
                 case Stats.MANA:
                     affectedCharacter.currentMana += effect.effectStrength;

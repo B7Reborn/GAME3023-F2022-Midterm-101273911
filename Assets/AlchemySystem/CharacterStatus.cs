@@ -39,11 +39,6 @@ public class CharacterStatus : MonoBehaviour
         UpdateText();
     }
 
-    
-    void Update()
-    {
-        
-    }
 
     public void UpdateText()
     {

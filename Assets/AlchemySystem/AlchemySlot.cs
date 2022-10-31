@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AlchemySlot : MonoBehaviour
+public class AlchemySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Item item = null;
 
@@ -39,7 +39,10 @@ public class AlchemySlot : MonoBehaviour
     [SerializeField]
     private ItemSlot[] itemSlots;
     [SerializeField]
-    private Item genericPotion;
+    public List<Recipe> recipeList;
+
+    private bool ingredientsMatchRecipe = false;
+    private bool effectsMatchRecipe = false;
 
 
     // Start is called before the first frame update
@@ -69,22 +72,67 @@ public class AlchemySlot : MonoBehaviour
 
     public void GeneratePotion()
     {
-        // Create the made potion
-        Item newPotion = genericPotion;
-        foreach (IngredientSlot slot in ingredientSlots)
+        // Reset potion making checks
+        ingredientsMatchRecipe = false;
+        effectsMatchRecipe = true;
+        Recipe targetRecipe = null;
+        item = null;
+        Count = 0;
+
+        // Check added ingredients against each recipe
+        foreach (Recipe recipe in recipeList)
         {
-            if (slot.ingredient != null)
+            // Set target recipe
+            targetRecipe = recipe;
+            // Make temporary list of items
+            List<Ingredient> tempList = new List<Ingredient>(recipe.ingredientList);
+
+            // Check through each ingredient slot
+            foreach (IngredientSlot inputSlots in ingredientSlots)
             {
-                foreach (Effect effect in slot.ingredient.effectList)
+                // If the ingredient in the slot matches an item in list, remove item from list
+                bool removeItem = false;
+                int removeIndex = -1;
+                foreach (Ingredient tempIngredient in tempList)
                 {
-                    newPotion.itemEffects.Add(effect);
+                    removeIndex++;
+                    if (inputSlots.ingredient == tempIngredient)
+                    {
+                        removeItem = true;
+                        break;
+                    }
+                    
+                }
+
+                if (removeItem)
+                {
+                    tempList.RemoveAt(removeIndex);
                 }
             }
+
+            // Once through all slots, if list is empty, all items in that recipe are in the pot
+            if (tempList.Count == 0)
+            {
+                // Therefore that recipe is makeable with given ingredients, break loop
+                ingredientsMatchRecipe = true;
+                break;
+            }
+
+            // Otherwise, check next recipe (continue loop)
         }
 
-        item = newPotion;
-        Count = 1;
-        // asdf
+        
+
+        if (ingredientsMatchRecipe && effectsMatchRecipe)
+        {
+            // Set to appropriate potion and display it
+            item = targetRecipe.outputItem;
+            Count = 1;
+            
+        }
+
+
+        UpdateGraphic();
     }
 
     public void UseItemInSlot()
