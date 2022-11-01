@@ -9,17 +9,6 @@ public class Ingredient : ScriptableObject
     public Sprite icon;
     public string description = "";
     public List<Effect> effectList;
-    public bool inPot;
 
-    public void MoveIngredient()
-    {
-        if (inPot)
-        {
 
-        }
-        else
-        {
-
-        }
-    }
 }

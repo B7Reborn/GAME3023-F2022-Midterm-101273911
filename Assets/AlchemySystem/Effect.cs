@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public struct Effect
 {
-    public string effectName;
     public int effectStrength;
     public Stats affectedStat;
 }
