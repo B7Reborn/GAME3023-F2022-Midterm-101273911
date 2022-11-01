@@ -77,7 +77,7 @@ public class SelectedRecipeSlot : MonoBehaviour
 
     private void ClearDisplay()
     {
-        nameText.text = "";
+        nameText.text = "Potion Name";
         descriptionText.text = "";
         ingredientsText.text = "";
         effectsText.text = "";

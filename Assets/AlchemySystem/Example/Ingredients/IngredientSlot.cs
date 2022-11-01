@@ -62,6 +62,7 @@ public class IngredientSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (count < 1)
         {
+            ResetText();
             ingredient = null;
             ingredientIcon.gameObject.SetActive(false);
             ingredientCountText.gameObject.SetActive(false);
@@ -134,6 +135,7 @@ public class IngredientSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (ingredient != null)
         {
+            ResetText();
             nameText.text = ingredient.name;
             descriptionText.text = ingredient.description;
             foreach (Effect effect in ingredient.effectList)
@@ -155,10 +157,15 @@ public class IngredientSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (ingredient != null)
         {
-            descriptionText.text = "";
-            nameText.text = "Ingredients";
-            effectsDescriptionText.text = "";
-            effectsText.text = "Effects";
+            ResetText();
         }
+    }
+
+    public void ResetText()
+    {
+        descriptionText.text = "";
+        nameText.text = "Ingredients";
+        effectsDescriptionText.text = "";
+        effectsText.text = "Effects";
     }
 }

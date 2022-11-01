@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,11 @@ public class AlchemySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private TMPro.TextMeshProUGUI descriptionText;
     [SerializeField]
     private TMPro.TextMeshProUGUI nameText;
+
+    [SerializeField]
+    private TMPro.TextMeshProUGUI ingredientsText;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI effectsText;
 
     [SerializeField]
     private int count = 0;
@@ -220,7 +226,7 @@ public class AlchemySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void UseItemInSlot()
     {
 
-        // When clicking the alchemy slot 
+        // When clicking the alchemy slot add potion to inventory
         foreach (ItemSlot slot in itemSlots)
         {
             if (slot.item == null && this.item != null)
@@ -235,7 +241,16 @@ public class AlchemySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 break;
             }
         }
-
+        // Remove the materials used for alchemy
+        foreach (IngredientSlot slotToClear in ingredientSlots)
+        {
+            slotToClear.Count = 0;
+            slotToClear.UpdateGraphic();
+        }
+        // Clear self
+        Count = 0;
+        ResetText();
+        UpdateGraphic();
     }
 
     private bool CanUseItem()
@@ -251,15 +266,24 @@ public class AlchemySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             descriptionText.text = item.description;
             foreach (Effect effect in item.itemEffects)
             {
-                descriptionText.text += $"\n {effect.affectedStat}";
+                effectsText.text += $"{effect.affectedStat}";
                 if (effect.effectStrength > -1)
                 {
-                    descriptionText.text += $" +{effect.effectStrength}";
+                    effectsText.text += $" +{effect.effectStrength}\n";
                 }
                 else
                 {
-                    descriptionText.text += $" -{effect.effectStrength}";
+                    effectsText.text += $" -{effect.effectStrength}\n";
                 }
+            }
+
+            foreach (IngredientSlot inputSlot in ingredientSlots)
+            {
+                if (inputSlot.ingredient != null)
+                {
+                    ingredientsText.text += $"{inputSlot.ingredient.name}\n";
+                }
+                
             }
         }
     }
@@ -268,8 +292,15 @@ public class AlchemySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (item != null)
         {
-            descriptionText.text = "";
-            nameText.text = "";
+            ResetText();
         }
+    }
+
+    public void ResetText()
+    {
+        descriptionText.text = "Potion Effects";
+        nameText.text = "Potion Name";
+        ingredientsText.text = "";
+        effectsText.text = "";
     }
 }

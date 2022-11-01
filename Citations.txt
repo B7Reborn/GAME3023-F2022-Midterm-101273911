@@ -1,0 +1,8 @@
+Most resources used were class materials from either this class or GAME2014 as needed, such as the different attributes used.
+
+Outside resources for getting specific functionality of base Unity or C# functions came from their respective resources. Specifically,
+Unity user manual: https://docs.unity3d.com/2020.1/Documentation/Manual/index.html
+Microsoft's C# documentation: https://learn.microsoft.com/en-us/dotnet/csharp/
+
+Most bugfixing and error checking was due to memory issues (at least from what I was able to understand from the error messasges) but one specific error was I kept getting a null object reference, but didn't know it. Upon checking the unity forums, I found a post that described the same error message I was getting: https://forum.unity.com/threads/object-reference-not-set-to-an-instance-of-an-object-c.226430/
+

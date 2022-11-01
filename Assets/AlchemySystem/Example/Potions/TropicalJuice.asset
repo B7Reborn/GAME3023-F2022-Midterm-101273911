@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TropicalJuice
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 4d89a51dd66cfd04ca99e4518d325c16, type: 3}
-  description: 
-  isConsumable: 0
+  description: A mixture of various tropical fruits
+  isConsumable: 1
   itemEffects:
   - effectStrength: 10
     affectedStat: 0

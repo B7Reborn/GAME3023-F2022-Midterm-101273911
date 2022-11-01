@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 73f2abb479cd22a428dafcdbd851473f, type: 3}
   description: A potion that grants the strength to lift boulders
-  isConsumable: 0
+  isConsumable: 1
   itemEffects:
-  - effectName: 
-    effectStrength: 10
+  - effectStrength: 10
     affectedStat: 4
